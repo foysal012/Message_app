@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:message_app/screen/authentication/sign_in_page_screen.dart';
+import 'package:message_app/services/auth/auth_gate.dart';
 
 class SpalashScreen extends StatefulWidget {
   const SpalashScreen({Key? key}) : super(key: key);
@@ -15,7 +16,8 @@ class _SpalashScreenState extends State<SpalashScreen> {
   void initState() {
     // TODO: implement initState
     Future.delayed(Duration(seconds: 2),(){
-      Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SignInPageScreen()));
+      //Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SignInPageScreen()));
+      Navigator.of(context).push(MaterialPageRoute(builder: (context)=> AuthGate()));
     });
     super.initState();
   }
@@ -24,7 +26,11 @@ class _SpalashScreenState extends State<SpalashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        //mainAxisAlignment: MainAxisAlignment.center,
         children: [
+
+          SizedBox(height: MediaQuery.of(context).size.height * 0.4,),
+
 
           Container(
             alignment: Alignment.center,
@@ -32,19 +38,21 @@ class _SpalashScreenState extends State<SpalashScreen> {
             style: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.bold,
-              color: Colors.pink
+              color: Colors.purple
             ),
             ),
           ),
 
+          SizedBox(height: MediaQuery.of(context).size.height * 0.4,),
+
 
           Container(
             alignment: Alignment.bottomCenter,
-            child: Text("Sponsored by Neuflo Solutions",
+            child: Text("Powered by Neuflo Solutions",
               style: TextStyle(
-                  fontSize: 30,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Colors.pink
+                  color: Colors.purple
               ),
             ),
           ),

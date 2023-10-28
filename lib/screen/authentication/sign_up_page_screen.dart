@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:message_app/screen/authentication/sign_in_page_screen.dart';
+import 'package:message_app/services/auth/auth_services.dart';
+import 'package:provider/provider.dart';
 
 class SignUpPageScreen extends StatefulWidget {
   const SignUpPageScreen({Key? key}) : super(key: key);
@@ -17,11 +19,38 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
 
   bool obsecureText = true;
 
+  void signUp() async{
+
+
+    if(passwordController.text != confirmPasswordController.text){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("password do not match"),),);
+      return ;
+    }
+
+    final authServices = Provider.of<AuthServices>(context, listen: false);
+
+    try{
+
+      await authServices.signUpWithEmailandPassword(
+          emailController.text,
+          passwordController.text,
+      );
+    } catch (e){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("${e.toString()}"),),);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        padding: EdgeInsets.only(
+          left: 10,
+          right: 10,
+        ),
         child:Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+
           children: [
 
             SizedBox(height: MediaQuery.of(context).size.height * 0.04,),
@@ -101,7 +130,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                     ),
                   ),
 
-                  hintText: "Enter your password...",
+                  hintText: "Enter password...",
 
                   prefixIcon: Icon(Icons.key, color: Colors.purple,),
 
@@ -152,7 +181,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                     ),
                   ),
 
-                  hintText: "Enter your password...",
+                  hintText: "Enter confirm password...",
 
                   prefixIcon: Icon(Icons.key, color: Colors.purple,),
 
@@ -172,7 +201,10 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
 
             InkWell(
               onTap: (){
-
+                //Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignInPageScreen()));
+                signUp();
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignInPageScreen()));
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Signup Successfully")));
               },
 
               child: Container(
@@ -182,17 +214,19 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                   borderRadius: BorderRadius.circular(20),
                   color: Colors.purple,
                 ),
-                child: Text("Sign Up",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
+                child: Center(
+                  child: Text("Sign Up",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
             ),
 
-            SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
 
             Row(
               children: [

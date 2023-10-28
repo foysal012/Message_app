@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:message_app/screen/authentication/forget_password_page_screen.dart';
 import 'package:message_app/screen/authentication/sign_up_page_screen.dart';
+import 'package:message_app/services/auth/auth_services.dart';
+import 'package:provider/provider.dart';
 
 class SignInPageScreen extends StatefulWidget {
   const SignInPageScreen({Key? key}) : super(key: key);
@@ -18,11 +20,30 @@ class _SignInPageScreenState extends State<SignInPageScreen> {
 
   bool obsecureText = true;
 
+  void signIn()async{
+
+    final firebaseAuth = Provider.of<AuthServices>(context, listen: false);
+
+    try{
+     await firebaseAuth.SignInWithEmailandPassword(
+         emailController.text,
+         passwordController.text
+     );
+    } catch (e){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("${e.toString()}"),),);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        padding: EdgeInsets.only(
+          left: 10,
+          right: 10,
+        ),
         child:Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
 
             SizedBox(height: MediaQuery.of(context).size.height * 0.04,),
@@ -122,7 +143,9 @@ class _SignInPageScreenState extends State<SignInPageScreen> {
 
             InkWell(
               onTap: (){
-
+                //Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUpPageScreen()));
+                signIn();
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Signin Successfully")));
               },
 
               child: Container(
@@ -132,17 +155,19 @@ class _SignInPageScreenState extends State<SignInPageScreen> {
                   borderRadius: BorderRadius.circular(20),
                   color: Colors.purple,
                 ),
-                child: Text("Sign In",
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
+                child: Center(
+                  child: Text("Sign In",
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  ),
                 ),
               ),
             ),
 
-            SizedBox(height: MediaQuery.of(context).size.height * 0.04,),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
 
             Row(
               children: [

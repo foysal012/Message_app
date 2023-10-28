@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:message_app/screen/authentication/sign_in_page_screen.dart';
 
 class ForgetPasswordPageScreen extends StatefulWidget {
   const ForgetPasswordPageScreen({Key? key}) : super(key: key);
@@ -19,7 +20,13 @@ class _ForgetPasswordPageScreenState extends State<ForgetPasswordPageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        padding: EdgeInsets.only(
+          left: 10,
+          right: 10,
+        ),
         child:Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          //crossAxisAlignment: CrossAxisAlignment.center,
           children: [
 
             SizedBox(height: MediaQuery.of(context).size.height * 0.04,),
@@ -68,7 +75,9 @@ class _ForgetPasswordPageScreenState extends State<ForgetPasswordPageScreen> {
 
             InkWell(
               onTap: (){
-
+                //Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUpPageScreen()));
+                Navigator.of(context).pop();
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Sent a rest link in your email")));
               },
 
               child: Container(
@@ -78,14 +87,39 @@ class _ForgetPasswordPageScreenState extends State<ForgetPasswordPageScreen> {
                   borderRadius: BorderRadius.circular(20),
                   color: Colors.purple,
                 ),
-                child: Text("Reset",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
+                child: Center(
+                  child: Text("Reset",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
+            ),
+
+            SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+
+                Text("Remember password?"),
+
+                SizedBox(width: 10,),
+
+                InkWell(
+                  onTap: (){
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignInPageScreen()));
+                  },
+                  child: Text("Sign In",
+                    style: TextStyle(
+                        color: Colors.purple
+                    ),
+                  ),
+                )
+              ],
             )
 
           ],
