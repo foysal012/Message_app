@@ -32,16 +32,21 @@ class _HomePageScreenState extends State<HomePageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: Icon(Icons.home),
+          backgroundColor: Colors.purple,
+          leading: Icon(Icons.menu, color: Colors.white,),
           centerTitle: true,
-          title: Text("HomePage"),
+          title: Text("HomePage",
+          style: TextStyle(
+            color: Colors.white
+          ),
+          ),
 
           actions: [
             IconButton(
                 onPressed: (){
               signOut();
             },
-                icon: Icon(Icons.logout)
+                icon: Icon(Icons.logout, color: Colors.white,)
             )
           ],
         ),
@@ -82,7 +87,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
             receiverUserId: data["uid"],
           )));
         },
-        title: Text(data["email"]),
+        title: Text(data["email"],
+        style: TextStyle(
+          color: Colors.purple,
+        ),
+        ),
 
       );
     } else {

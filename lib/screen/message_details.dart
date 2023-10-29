@@ -32,8 +32,18 @@ class _MessageDetailsState extends State<MessageDetails> {
     return Scaffold(
 
       appBar: AppBar(
+        backgroundColor: Colors.purple,
+        leading: IconButton(onPressed: (){
+          Navigator.of(context).pop();
+        }, icon: Icon(Icons.arrow_back,color: Colors.white,)),
         centerTitle: true,
-        title: Text("${widget.receiverUserEmail.toString()}"),
+        title: Text("${widget.receiverUserEmail.toString()}",
+        style: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontStyle: FontStyle.italic,
+        ),
+        ),
       ),
 
       body: Column(
@@ -90,8 +100,8 @@ class _MessageDetailsState extends State<MessageDetails> {
             Text(data["senderEmail"],
               style: TextStyle(
                   color: Colors.purple,
-                  fontSize: 20,
-                fontWeight: FontWeight.bold
+                  fontSize: 16,
+                fontWeight: FontWeight.w500
               ),
             ),
 

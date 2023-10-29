@@ -65,4 +65,12 @@ class AuthServices with ChangeNotifier{
     //notifyListeners();
   }
 
+  //reset password
+  Future<void> resetPassword(String email) async{
+
+       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+
+    //notifyListeners();
+  }
+
 }
