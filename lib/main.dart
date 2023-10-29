@@ -5,6 +5,7 @@ import 'package:message_app/firebase_options.dart';
 import 'package:message_app/screen/spalash%20screen/spalash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:message_app/services/auth/auth_services.dart';
+import 'package:message_app/services/message/message_services.dart';
 import 'package:provider/provider.dart';
 
 void main() async{
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (context) => AuthServices()),
+          ChangeNotifierProvider(create: (context) => MessageServices()),
         ],
       child: MaterialApp(
         title: 'Flutter Demo',
